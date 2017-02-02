@@ -1,0 +1,6 @@
+package: github.com/fkse/gh-release-fetcher
+import:
+- package: github.com/google/go-github
+- package: github.com/golang/oauth2
+  subpackages:
+  - internal
