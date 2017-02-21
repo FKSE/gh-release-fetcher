@@ -9,6 +9,7 @@ import (
 	"path"
 	"io"
 	"net/http"
+	"context"
 )
 
 var (
@@ -26,13 +27,13 @@ func main()  {
 	)
 	client := github.NewClient(oauth2.NewClient(oauth2.NoContext, ts))
 	// get latest release
-	release, _, err := client.Repositories.GetLatestRelease(*owner, *repo)
+	release, _, err := client.Repositories.GetLatestRelease(context.Background(), *owner, *repo)
 	if err != nil {
 		log.Fatalln(err)
 	}
 	// download all assets
 	for _, asset := range release.Assets {
-		rc, redirect, err := client.Repositories.DownloadReleaseAsset(*owner, *repo, *asset.ID)
+		rc, redirect, err := client.Repositories.DownloadReleaseAsset(context.Background(), *owner, *repo, *asset.ID)
 		if err != nil {
 			log.Fatalln(err)
 		}
